@@ -1,8 +1,9 @@
-import IORedis from "ioredis";
+import Redis from "ioredis";
+import { config } from "../config/index.js";
 
-const redis = new IORedis({
-  host: "localhost",   // 🔥 IMPORTANT FIX
-  port: 6379
+const redis = new Redis({
+  host: config.redis.host,
+  port: config.redis.port,
 });
 
 export default redis;

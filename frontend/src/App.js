@@ -1,4 +1,6 @@
 import { useState } from "react";
+import { Toaster } from "react-hot-toast";
+
 import IncidentList from "./components/IncidentList";
 import IncidentDetail from "./components/IncidentDetail";
 import DashboardStats from "./components/DashboardStats";
@@ -8,7 +10,9 @@ function App() {
 
   return (
     <div style={{ padding: "20px" }}>
+      <Toaster position="top-right" />
       <DashboardStats />
+
       <div style={{ display: "flex", gap: "20px" }}>
         <div style={{ width: "40%" }}>
           <IncidentList onSelect={setSelected} />

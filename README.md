@@ -46,7 +46,10 @@ The system handles bursts of up to **10,000 signals/sec**.
 
 ### 5. Resilience & Error Handling
 - **Retry Logic**: BullMQ is configured with a **3-attempt exponential backoff** strategy for worker jobs.
-- **DB Write Safety**: State transitions are validated before any database update to ensure transactional integrity.
+- **Deep Health Checks**: The `/health` endpoint performs recursive connectivity checks for MongoDB, PostgreSQL, and Redis.
+- **Structured Logging**: All system events and metrics are logged in **JSON format** for production auditability.
+- **Graceful UI**: Integrated `react-hot-toast` for non-blocking user feedback on all incident transitions.
+
 
 ---
 

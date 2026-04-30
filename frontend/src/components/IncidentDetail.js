@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import { getSignals, updateStatus } from "../api";
+import { toast } from "react-hot-toast";
+
 
 const IncidentDetail = ({ incident }) => {
   const [signals, setSignals] = useState([]);
@@ -18,18 +20,24 @@ const IncidentDetail = ({ incident }) => {
   }, [incident]);
 
   const loadSignals = async () => {
-    const res = await getSignals(incident.component_id);
-    setSignals(res.data);
+    try {
+      const res = await getSignals(incident.component_id);
+      setSignals(res.data);
+    } catch (err) {
+      toast.error("Failed to load raw signals");
+    }
   };
 
   const handleUpdateStatus = async (newStatus) => {
     try {
       await updateStatus(incident.id, newStatus, newStatus === "CLOSED" ? rca : null);
-      alert(`Incident status updated to ${newStatus}!`);
+      toast.success(`Incident status updated to ${newStatus}!`);
+      setTimeout(() => window.location.reload(), 1000); 
     } catch (err) {
-      alert(err.response?.data?.error || "Error updating status");
+      toast.error(err.response?.data?.error || "Error updating status");
     }
   };
+
 
   const handleRcaChange = (field, value) => {
     setRca(prev => ({ ...prev, [field]: value }));
