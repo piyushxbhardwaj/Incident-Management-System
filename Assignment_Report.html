@@ -1,3 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Piyush Bhardwaj - Infrastructure / SRE Intern Assignment</title>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/5.2.0/github-markdown.min.css">
+    <style>
+        .markdown-body {
+            box-sizing: border-box;
+            min-width: 200px;
+            max-width: 980px;
+            margin: 0 auto;
+            padding: 45px;
+        }
+        @media (max-width: 767px) {
+            .markdown-body {
+                padding: 15px;
+            }
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 20px auto;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+<body>
+    <div id="content" class="markdown-body"></div>
+    <script>
+        const markdown = `
 # Infrastructure / SRE Intern Assignment - Zeotap
 **Name:** Piyush Bhardwaj  
 **Project:** Mission-Critical Incident Management System (IMS)  
@@ -23,20 +56,18 @@ This Incident Management System (IMS) is architected for **resilience and high t
 
 ---
 
-
 ## 2. Technical Architecture & Non-Functional Features
-
 
 ### 🚀 High-Throughput & Backpressure Handling
 The system decouples ingestion from persistence using a **Producer-Consumer model**. 
 - **Ingestion:** API accepts signals and instantly pushes them to a Redis-backed queue.
 - **Consumer:** A dedicated worker processes signals at a sustainable rate, protecting MongoDB and PostgreSQL from being overwhelmed during traffic bursts.
-- **Rate Limiting:** `express-rate-limit` prevents cascading failures by capping requests at 10,000 signals/sec per IP.
+- **Rate Limiting:** \`express-rate-limit\` prevents cascading failures by capping requests at 10,000 signals/sec per IP.
 
 ### 🛡️ Security Layer (Bonus)
-- **API Key Protection:** The ingestion endpoint (`/api/signals`) is secured with `X-API-KEY` header validation.
+- **API Key Protection:** The ingestion endpoint (\`/api/signals\`) is secured with \`X-API-KEY\` header validation.
 - **Dashboard Authorization:** All management APIs are protected via **JWT (Mock)** validation.
-- **Environment Management:** Centralized configuration via `.env` files for secure credential handling.
+- **Environment Management:** Centralized configuration via \`.env\` files for secure credential handling.
 
 ### 📉 Intelligent Debouncing
 To prevent "alert fatigue," the system implements a **10-second sliding window** count in Redis.
@@ -52,7 +83,7 @@ To prevent "alert fatigue," the system implements a **10-second sliding window**
 ## 3. Observability & Testing
 
 ### 🩺 Deep Health Checks
-The `/health` endpoint performs recursive connectivity checks for MongoDB, PostgreSQL, and Redis, returning a `503` if any core infrastructure is unreachable.
+The \`/health\` endpoint performs recursive connectivity checks for MongoDB, PostgreSQL, and Redis, returning a \`503\` if any core infrastructure is unreachable.
 
 ### 📊 Structured Logging
 The system uses **JSON-formatted structured logs** for production-grade auditability and easy integration with ELK or Datadog.
@@ -64,11 +95,11 @@ The system uses **JSON-formatted structured logs** for production-grade auditabi
 ---
 
 ## 4. Setup & Running Instructions
-1. **Infra:** `docker-compose up -d`
-2. **Backend:** `cd backend && npm start`
-3. **Worker:** `cd backend && node src/workers/signalWorker.js`
-4. **Frontend:** `cd frontend && npm start`
-5. **Test:** `cd backend && npm run test:integration`
+1. **Infra:** \`docker-compose up -d\`
+2. **Backend:** \`cd backend && npm start\`
+3. **Worker:** \`cd backend && node src/workers/signalWorker.js\`
+4. **Frontend:** \`cd frontend && npm start\`
+5. **Test:** \`cd backend && npm run test:integration\`
 
 ---
 
@@ -80,3 +111,8 @@ The system uses **JSON-formatted structured logs** for production-grade auditabi
 ---
 **Piyush Bhardwaj**  
 *Infrastructure / SRE Intern Candidate*
+        `;
+        document.getElementById('content').innerHTML = marked.parse(markdown);
+    </script>
+</body>
+</html>
