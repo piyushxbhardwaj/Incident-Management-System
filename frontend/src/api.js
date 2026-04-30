@@ -1,8 +1,12 @@
 import axios from "axios";
 
 const API = axios.create({
-  baseURL: "http://localhost:5000/api"
+  baseURL: "http://localhost:5000/api",
+  headers: {
+    Authorization: "Bearer MOCK_JWT_DASHBOARD_TOKEN"
+  }
 });
+
 
 export const getIncidents = () => API.get("/work-items");
 export const getSignals = (component_id) =>

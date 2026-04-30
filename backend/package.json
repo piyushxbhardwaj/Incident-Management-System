@@ -6,6 +6,8 @@
   "scripts": {
     "start": "node server.js",
     "test": "node src/tests/rcaValidation.test.js",
+    "test:integration": "node src/tests/integration.test.js",
+
 
   },
   "keywords": [],

@@ -7,7 +7,10 @@ const DashboardStats = () => {
   useEffect(() => {
     const fetchStats = async () => {
       try {
-        const res = await axios.get("http://localhost:5000/api/stats");
+        const res = await axios.get("http://localhost:5000/api/stats", {
+          headers: { Authorization: "Bearer MOCK_JWT_DASHBOARD_TOKEN" }
+        });
+
 
         setStats(res.data);
       } catch (err) {

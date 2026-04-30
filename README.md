@@ -44,21 +44,30 @@ The system handles bursts of up to **10,000 signals/sec**.
 - **API**: `GET /api/work-items/stats` returns real-time incident counts grouped by status.
 - **Frontend**: A global stats banner at the top of the dashboard provides instant visibility into system health.
 
-### 5. Resilience & Error Handling
+### 5. Resilience & Security
 - **Retry Logic**: BullMQ is configured with a **3-attempt exponential backoff** strategy for worker jobs.
 - **Deep Health Checks**: The `/health` endpoint performs recursive connectivity checks for MongoDB, PostgreSQL, and Redis.
+- **API Security**: 
+    - **Ingestion**: Protected via `X-API-KEY` header validation.
+    - **Dashboard**: Protected via `Authorization: Bearer` JWT validation (Mock).
 - **Structured Logging**: All system events and metrics are logged in **JSON format** for production auditability.
 - **Graceful UI**: Integrated `react-hot-toast` for non-blocking user feedback on all incident transitions.
-
 
 ---
 
 ## 🧪 Testing
-Run the RCA validation unit tests:
+### Unit Tests (RCA Validation)
 ```bash
 cd backend
 npm test
 ```
+
+### Integration Tests (Full Pipeline)
+```bash
+cd backend
+npm run test:integration
+```
+
 
 ---
 

@@ -16,7 +16,10 @@ async function sendSignals(component, count) {
         component_id: component.id,
         severity: component.severity,
         message: `${component.message} - Instance ${i}`
+      }, {
+        headers: { "x-api-key": "IMS_SUPER_SECRET_KEY" }
       });
+
       if (i % 20 === 0) console.log(`  Sent ${i} signals...`);
     } catch (err) {
       console.error(`  ❌ Error at ${i}: ${err.message}`);

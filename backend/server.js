@@ -8,9 +8,12 @@ import { pool } from "./src/config/postgres.js";
 import redis from "./src/utils/redisClient.js";
 import { logger } from "./src/utils/logger.js";
 
+import { apiKeyAuth, mockJwtAuth } from "./src/middleware/auth.js";
+
 import signalRoutes from "./src/controllers/signalController.js";
 
 import workItemRoutes from "./src/controllers/workItemRoutes.js";
+
 
 const app = express();
 app.use(cors());
@@ -36,9 +39,10 @@ setInterval(() => {
 }, 5000);
 
 
-app.use("/api/signals", ingestionLimiter, signalRoutes);
+app.use("/api/signals", ingestionLimiter, apiKeyAuth, signalRoutes);
 
-app.get("/api/stats", async (req, res) => {
+app.get("/api/stats", mockJwtAuth, async (req, res) => {
+
   try {
     const result = await pool.query(
       "SELECT status, COUNT(*) as count FROM work_items GROUP BY status"
@@ -49,7 +53,8 @@ app.get("/api/stats", async (req, res) => {
   }
 });
 
-app.use("/api/work-items", workItemRoutes);
+app.use("/api/work-items", mockJwtAuth, workItemRoutes);
+
 
 app.get("/health", async (req, res) => {
   try {
