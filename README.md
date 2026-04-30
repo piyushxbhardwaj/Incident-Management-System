@@ -12,12 +12,13 @@ graph TD
         Worker -->|Debounce / Link| Mongo[(MongoDB - Data Lake)]
         Worker -->|Create/Update| Postgres[(Postgres - Source of Truth)]
         Worker -->|Alerting Strategy| Alerts[Email / Slack / SMS]
-    </div>
+    end
 
     subgraph "Incident Management"
         Dashboard[React Dashboard] -->|Workflow Transitions| API
         API -->|State Pattern Validation| Postgres
-    </div>
+    end
+
 ```
 
 ---
